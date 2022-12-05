@@ -1,0 +1,36 @@
+*Running C++ (Optimization level 0)
+g++ task.cpp -O0 -o slow.out && (time -p ./slow.out 100000000 3 4 2) 2>&1 | tee results.log >> /dev/null
+real 0.42
+user 0.40
+sys 0.01
+
+----------
+*Running C++ (Optimization level 3)
+g++ task.cpp -O3 -o slow.out && (time -p ./slow.out 100000000 3 4 2) 2>&1 | tee results.log >> /dev/null
+real 0.04
+user 0.04
+sys 0.00
+
+----------
+*Running Python (Loop)
+(time -p python3 task_loop.py 100000000 3 4 2) 2>&1 | tee results.log >> /dev/null
+real 15.00
+user 14.92
+sys 0.01
+
+----------
+*Running Python (Reduce)
+(time -p python3 task_sum.py 100000000 3 4 2) 2>&1 | tee results.log >> /dev/null
+real 25.80
+user 25.71
+sys 0.03
+
+----------
+*Running x86 asm
+nasm -f elf64 task.asm -o task_asm.o && g++ -no-pie task_asm.o -o task_asm && time -p ./task_asm 2>&1 | tee results.log >> /dev/null
+Command terminated by signal 11
+real 0.93
+user 0.93
+sys 0.00
+
+----------
