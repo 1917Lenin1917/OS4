@@ -1,0 +1,5 @@
+out
+results.log
+*.out 
+task_asm
+*.o 
